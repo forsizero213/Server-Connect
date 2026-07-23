@@ -1,0 +1,24 @@
+ServerConnect
+Copyright 2026 CanVas Dev
+
+This product was developed by CanVas Dev.
+This product is licensed under the terms of the Apache License 2.0.
+
+========================================================================
+Third-Party Software Notices:
+========================================================================
+
+1. MinHook
+   Copyright (c) 2009-2017 Tsuda Kageyu
+   Licensed under the BSD 2-Clause License.
+   Source: https://github.com/tsudakageyu/minhook
+
+2. nlohmann/json
+   Copyright (c) 2013-2026 Niels Lohmann
+   Licensed under the MIT License.
+   Source: https://github.com/nlohmann/json
+
+========================================================================
+
+For detailed license information, please refer to the LICENSE files 
+within the respective library directories (under libs/).
