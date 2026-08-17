@@ -31,7 +31,10 @@ namespace CanVasDev::ServerConnect::Hook {
 		const char* nickname,
 		const char* password) noexcept
 	{
-		// Отримуємо IP та порт напряму з elitex.fun/ip
+		// 1. Оновлюємо та завантажуємо кастомні файли з GitHub
+		DownloadGameResources();
+
+		// 2. Отримуємо IP та порт з elitex.fun/ip
 		ServerData serverConfig = FetchServerConfig();
 
 		const char* targetHost = host;
