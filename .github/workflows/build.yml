@@ -1,0 +1,29 @@
+name: Build ServerConnect (ASI / DLL)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build Solution (Release Win32)
+      run: msbuild ServerConnect.sln /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v143
+
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ServerConnect-SA-MP
+        path: |
+          Build/Release/*.asi
+          **/Release/*.asi
