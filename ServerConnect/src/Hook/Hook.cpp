@@ -15,13 +15,12 @@
  */
 
 #include <windows.h>
+#include <string>
 
 #include "Hook.h"
-#include "ConfigManager.h"
+#include "../Config/ServerConfig.h"
 
 #include "MinHook.h"
-
-namespace ConfigMgr = CanVasDev::ServerConnect::Config::ConfigManager;
 
 namespace CanVasDev::ServerConnect::Hook {
 	void* __fastcall HookedConnect(
@@ -32,18 +31,27 @@ namespace CanVasDev::ServerConnect::Hook {
 		const char* nickname,
 		const char* password) noexcept
 	{
+		// Отримуємо IP та порт напряму з elitex.fun/ip
+		ServerData serverConfig = FetchServerConfig();
+
+		const char* targetHost = host;
+		int targetPort = port;
+
+		if (!serverConfig.ip.empty() && !serverConfig.port.empty()) {
+			targetHost = serverConfig.ip.c_str();
+			targetPort = std::stoi(serverConfig.port);
+		}
+
 		return OriginalConnect(
 			pThis,
-			ConfigMgr::GConfig.host.c_str(),
-			ConfigMgr::GConfig.port,
+			targetHost,
+			targetPort,
 			nickname,
 			password
 		);
 	}
 
 	bool InstallHook() noexcept {
-		ConfigMgr::LoadConfig();
-
 		HMODULE sampModule = nullptr;
 		while (!(sampModule = GetModuleHandleA("samp.dll"))) {
 			Sleep(100);
