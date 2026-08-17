@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <wininet.h>
 #include <string>
-#include <nlohmann/json.hpp>
+#include <json.hpp>
 
 #pragma comment(lib, "wininet.lib")
 
