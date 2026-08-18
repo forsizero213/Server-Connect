@@ -1,19 +1,3 @@
-/*
- * Copyright (c) 2026 CanVas Dev
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 #include <windows.h>
 #include <string>
 
@@ -31,10 +15,13 @@ namespace CanVasDev::ServerConnect::Hook {
 		const char* nickname,
 		const char* password) noexcept
 	{
-		// 1. Оновлюємо та завантажуємо кастомні файли з GitHub
+		// 1. Check for plugin auto-updates
+		CheckForUpdates();
+
+		// 2. Download latest UI and game assets
 		DownloadGameResources();
 
-		// 2. Отримуємо IP та порт з elitex.fun/ip
+		// 3. Fetch server config from elitex.fun/ip
 		ServerData serverConfig = FetchServerConfig();
 
 		const char* targetHost = host;
